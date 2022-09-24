@@ -5,15 +5,17 @@
 body{
     --text: #1c4670;
     --text50: #00000050;
-    --text-accent: #93b3e1;
-    --text-accent50: #93b3e180;
-    --text-accent2: #95cae5;
+    --text-accent: #689fb5;
+    --text-accent50: #3489aa9c;
+    --text-accent2: #71c7ea;
     --text-accent3: #416b97;
 
     --card-border:#629efd;
     --pil-bg:#d8f0ff80;
+    --card-bg:#d8f0ff80;
+    --card-bg2:#d8f0ff;
 
-    --bg:#d8f0ff;
+    --bg:#8fd9ff;
     --bg50:#d8f0ff20;
 
     --w30:#ffffff30;
@@ -41,8 +43,16 @@ body > .content{
     width: calc(100% - 2rem);
     max-width: var(--content-size);
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.f-row{
+    display: flex;
     flex-direction: row;
     justify-content: center;
+    width: 100%;
 }
 
 .header{
@@ -122,10 +132,29 @@ button.pill.selected{
 
     transition: margin .2s ease;
 }
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+label.tag {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--text);
+    background: var(--pil-bg);
+    border-radius: 5px;
+    padding: 4px;
+    text-align: center;
+    min-width: 100px;
+    width: fit-content;
+    margin: 4px;
+}
 
 .temperature{
     width: calc(100%);
-    margin: 8px;
+    margin: 8px 8px 32px;
     border-radius: 24px;
     background: var(--bg);
     background-image: url(/style/img/clouds.png);
@@ -134,7 +163,6 @@ button.pill.selected{
     flex-direction: row;
     padding: 16px;
     aspect-ratio: 2 / 1;
-    box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
 }
 
 .temperature .content{
@@ -314,5 +342,62 @@ button.pill.selected{
 }
 .temperature .forecast .forecast-list .list-item > div > p > span{
     font-size: 8px;
+    font-weight: 400;
+}
+
+.f-row.past{
+    aspect-ratio: 4/1;
+}
+
+.f-row.past .card{
+    position: relative;
+    flex: 1;
+    aspect-ratio: 1/1;
+    
+    background: linear-gradient(315deg,var(--card-bg),var(--bg));
+    border-radius: 32px;
+    margin: 8px;
+    padding: 16px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.f-row.past .card > span{
+    height: fit-content;
+    width: fit-content;
+    padding: 16px;
+    background: var(--w80);
+    color: var(--text-accent2);
+    border-radius: 50%;
+}
+
+.f-row.past .card h3{
+    margin: 8px;
+    color: var(--text);
+}
+
+.f-row.past .card .text{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.f-row.past .card .value{
+    padding: 16px 1.2rem;
+    width: fit-content;
+    min-width: 1.9rem;
+    font-size: 1.5rem;
+    font-weight: 800;
+    text-align: right;
+    color: var(--text-accent);
+    background: var(--w80);
+    border-radius: 32px;
+    align-self: flex-end;
+}
+
+.f-row.past .card .value > span{
+    font-size: 1rem;
     font-weight: 400;
 }
