@@ -11,15 +11,436 @@
     <link rel="stylesheet" href="style/style.css">
     <title>Weather report</title>
 </head>
-<body>
+<body class="sun">
     <div class="header">
         <div class="content">
             <div class="title">
                 Weather report
             </div>
         </div>
+        <div class="content">
+            <button class="pill selected">
+                Horsens
+            </button>
+            <button class="pill">
+                Copenhagen
+            </button>
+            <button class="pill">
+                Aarhus
+            </button>
+        </div>
     </div>
+    <div class="content">
+        <div class="temperature">
+            <div class="content">
+                <div class="recent">
+                    Newest measurement
+                </div>
+                <div class="time" id="current-time">
+                    7:45
+                    <span class="material-icons-round">
+                        schedule
+                    </span>
+                </div>
+                <h2 class="city">
+                    Horsens
+                </h2>
+                <h1 id="current-temp">
+                    16°
+                </h1>
+                <div class="currentAdditional">
+                    <div class="precipitation">
+                        <span class="material-icons-round">
+                            water_drop
+                        </span>
+                        <p id="current-precipitation">
+                            0 - 0.5
+                            <span>
+                                mm
+                            </span>
+                        </p>
+                    </div>
 
+                    <div class="wind-speed">
+                        <span class="material-icons-round">
+                            air
+                        </span>
+                        <p id="current-wind-speed">
+                            4 - 6 
+                            <span>
+                                m/s
+                            </span>
+                        </p>
+                    </div>
+
+                    <div class="cloud-coverage">
+                        <span class="material-icons-round">
+                            cloud
+                        </span>
+                        <p id="current-cloud-coverage">
+                            75 - 100 
+                            <span>
+                                %
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="forecast">
+                <h2>
+                    Next 24 hours
+                </h2>
+                <p id="date-range">
+                    24/6 - 25/6
+                </p>
+                <div class="forecast-list">
+                    <div class="list-item">
+                        <div class="time">
+                            12:00
+                        </div>
+                        <div class="temperature-measurement">
+                            <span class="material-icons-round">
+                                thermostat
+                            </span>
+                            <p id="current-precipitation">
+                                16° - 19°
+                            </p>
+                        </div>
+
+                        <div class="precipitation">
+                            <span class="material-icons-round">
+                                water_drop
+                            </span>
+                            <p id="current-precipitation">
+                                0 - 0.5
+                                <span>
+                                    mm
+                                </span>
+                            </p>
+                        </div>
+    
+                        <div class="wind-speed">
+                            <span class="material-icons-round">
+                                air
+                            </span>
+                            <p id="current-wind-speed">
+                                4 - 6 
+                                <span>
+                                    m/s
+                                </span>
+                            </p>
+                        </div>
+    
+                        <div class="cloud-coverage">
+                            <span class="material-icons-round">
+                                cloud
+                            </span>
+                            <p id="current-cloud-coverage">
+                                75 - 100 
+                                <span>
+                                    %
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="list-item">
+                        <div class="time">
+                            13:00
+                        </div>
+                        <div class="temperature-measurement">
+                            <span class="material-icons-round">
+                                thermostat
+                            </span>
+                            <p id="current-precipitation">
+                                16° - 19°
+                            </p>
+                        </div>
+
+                        <div class="precipitation">
+                            <span class="material-icons-round">
+                                water_drop
+                            </span>
+                            <p id="current-precipitation">
+                                0 - 0.5
+                                <span>
+                                    mm
+                                </span>
+                            </p>
+                        </div>
+    
+                        <div class="wind-speed">
+                            <span class="material-icons-round">
+                                air
+                            </span>
+                            <p id="current-wind-speed">
+                                4 - 6 
+                                <span>
+                                    m/s
+                                </span>
+                            </p>
+                        </div>
+    
+                        <div class="cloud-coverage">
+                            <span class="material-icons-round">
+                                cloud
+                            </span>
+                            <p id="current-cloud-coverage">
+                                75 - 100 
+                                <span>
+                                    %
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="list-item">
+                        <div class="time">
+                            14:00
+                        </div>
+                        <div class="temperature-measurement">
+                            <span class="material-icons-round">
+                                thermostat
+                            </span>
+                            <p id="current-precipitation">
+                                16° - 19°
+                            </p>
+                        </div>
+
+                        <div class="precipitation">
+                            <span class="material-icons-round">
+                                water_drop
+                            </span>
+                            <p id="current-precipitation">
+                                0 - 0.5
+                                <span>
+                                    mm
+                                </span>
+                            </p>
+                        </div>
+    
+                        <div class="wind-speed">
+                            <span class="material-icons-round">
+                                air
+                            </span>
+                            <p id="current-wind-speed">
+                                4 - 6 
+                                <span>
+                                    m/s
+                                </span>
+                            </p>
+                        </div>
+    
+                        <div class="cloud-coverage">
+                            <span class="material-icons-round">
+                                cloud
+                            </span>
+                            <p id="current-cloud-coverage">
+                                75 - 100 
+                                <span>
+                                    %
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="list-item">
+                        <div class="time">
+                            15:00
+                        </div>
+                        <div class="temperature-measurement">
+                            <span class="material-icons-round">
+                                thermostat
+                            </span>
+                            <p id="current-precipitation">
+                                16° - 19°
+                            </p>
+                        </div>
+
+                        <div class="precipitation">
+                            <span class="material-icons-round">
+                                water_drop
+                            </span>
+                            <p id="current-precipitation">
+                                0 - 0.5
+                                <span>
+                                    mm
+                                </span>
+                            </p>
+                        </div>
+    
+                        <div class="wind-speed">
+                            <span class="material-icons-round">
+                                air
+                            </span>
+                            <p id="current-wind-speed">
+                                4 - 6 
+                                <span>
+                                    m/s
+                                </span>
+                            </p>
+                        </div>
+    
+                        <div class="cloud-coverage">
+                            <span class="material-icons-round">
+                                cloud
+                            </span>
+                            <p id="current-cloud-coverage">
+                                75 - 100 
+                                <span>
+                                    %
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="list-item">
+                        <div class="time">
+                            16:00
+                        </div>
+                        <div class="temperature-measurement">
+                            <span class="material-icons-round">
+                                thermostat
+                            </span>
+                            <p id="current-precipitation">
+                                16° - 19°
+                            </p>
+                        </div>
+
+                        <div class="precipitation">
+                            <span class="material-icons-round">
+                                water_drop
+                            </span>
+                            <p id="current-precipitation">
+                                0 - 0.5
+                                <span>
+                                    mm
+                                </span>
+                            </p>
+                        </div>
+    
+                        <div class="wind-speed">
+                            <span class="material-icons-round">
+                                air
+                            </span>
+                            <p id="current-wind-speed">
+                                4 - 6 
+                                <span>
+                                    m/s
+                                </span>
+                            </p>
+                        </div>
+    
+                        <div class="cloud-coverage">
+                            <span class="material-icons-round">
+                                cloud
+                            </span>
+                            <p id="current-cloud-coverage">
+                                75 - 100 
+                                <span>
+                                    %
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="list-item">
+                        <div class="time">
+                            17:00
+                        </div>
+                        <div class="temperature-measurement">
+                            <span class="material-icons-round">
+                                thermostat
+                            </span>
+                            <p id="current-precipitation">
+                                16° - 19°
+                            </p>
+                        </div>
+
+                        <div class="precipitation">
+                            <span class="material-icons-round">
+                                water_drop
+                            </span>
+                            <p id="current-precipitation">
+                                0 - 0.5
+                                <span>
+                                    mm
+                                </span>
+                            </p>
+                        </div>
+    
+                        <div class="wind-speed">
+                            <span class="material-icons-round">
+                                air
+                            </span>
+                            <p id="current-wind-speed">
+                                4 - 6 
+                                <span>
+                                    m/s
+                                </span>
+                            </p>
+                        </div>
+    
+                        <div class="cloud-coverage">
+                            <span class="material-icons-round">
+                                cloud
+                            </span>
+                            <p id="current-cloud-coverage">
+                                75 - 100 
+                                <span>
+                                    %
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="list-item">
+                        <div class="time">
+                            18:00
+                        </div>
+                        <div class="temperature-measurement">
+                            <span class="material-icons-round">
+                                thermostat
+                            </span>
+                            <p id="current-precipitation">
+                                16° - 19°
+                            </p>
+                        </div>
+
+                        <div class="precipitation">
+                            <span class="material-icons-round">
+                                water_drop
+                            </span>
+                            <p id="current-precipitation">
+                                0 - 0.5
+                                <span>
+                                    mm
+                                </span>
+                            </p>
+                        </div>
+    
+                        <div class="wind-speed">
+                            <span class="material-icons-round">
+                                air
+                            </span>
+                            <p id="current-wind-speed">
+                                4 - 6 
+                                <span>
+                                    m/s
+                                </span>
+                            </p>
+                        </div>
+    
+                        <div class="cloud-coverage">
+                            <span class="material-icons-round">
+                                cloud
+                            </span>
+                            <p id="current-cloud-coverage">
+                                75 - 100 
+                                <span>
+                                    %
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="scripts/script.js"></script>
 </body>
 </html>
