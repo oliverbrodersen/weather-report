@@ -1,4 +1,4 @@
-function ChangeCity(city){
+async function ChangeCity(city){
     //Deselect
     document.getElementById("Horsens").classList.remove("selected");
     document.getElementById("Aarhus").classList.remove("selected");
@@ -17,7 +17,7 @@ function ChangeCity(city){
     document.getElementById("date-range").innerHTML = dd + '/' + mm + ' - ' + dd1 + '/' + mm1;
 
     //Get forecast
-    const forecasts = GetForecast(city);
+    const forecasts = await GetForecast(city);
     
     //Update UI
     SetCurrent(forecasts[0]);
@@ -85,16 +85,10 @@ function SetForecast(data){
             });
 }
 
-function GetForecast(city){
-    let forecasts; 
-    fetch('http://localhost:8081/forecast/' + city)
-    .then(function(response) {
-        return response.json();
-    }).then(function(jsonData) {
-        forecasts = CreateForecastObjects(jsonData);
-    }).catch(function(err) {
-        console.log("Opps, Something went wrong!", err);
-    })
+async function GetForecast(city){
+    const response = await fetch('http://localhost:8081/forecast/' + city, {});
+    const json = await response.json();
+    let forecasts = CreateForecastObjects(json);
     return forecasts;
 }
 
