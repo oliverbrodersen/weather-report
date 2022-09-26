@@ -3,46 +3,107 @@
 }
 
 body{
-    --text: #000;
+    --text: #1c4670;
     --text50: #00000050;
+    --text-accent: #689fb5;
+    --text-accent50: #3489aa9c;
+    --text-accent2: #71c7ea;
+    --text-accent3: #416b97;
+
+    --card-border:#629efd;
+    --pil-bg:#d8f0ff80;
+    --card-bg:#d8f0ff80;
+    --card-bg2:#d8f0ff;
+
+    --bg:#8fd9ff;
+    --bg50:#d8f0ff20;
+
+    --w30:#ffffff30;
+    --w80:#ffffff80;
+    --w90:#ffffff90;
+    --w:#fff;
 
     --o1: 1;
     --o2: .8;
     --o3: .5;
     --o0: 0;
 
+    --content-size: 980px;
+    --shadow-color: 222deg 31% 65%;
+
     display: flex;
     flex-direction: column;
+    align-items: center;
     width: 100%;
+    min-height: 100vh;
     margin: 0%;
+}
+
+body > .content{
+    width: calc(100% - 2rem);
+    max-width: var(--content-size);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.f-row{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
 }
 
 .header{
     width: calc(100% - 2rem);
     display: flex;
-    flex-direction: row;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
     padding: 2rem 1rem 1rem;
 }
 
 .header .content{
     width: calc(100% - 2rem);
-    max-width: 980px;
+    max-width: var(--content-size);
     display: flex;
     flex-direction: row;
     justify-content: center;
-
-    border-bottom: .2rem solid var(--text50);
+    padding: .5rem 0;
 }
 
 .header .content .title{
     font-weight: 900;
     font-size: 2rem;
     opacity: var(--o2);
+    color: var(--text);
 }
 
+button.pill{
+    padding: 5px 12px;
+    margin: 0 4px;
+    border-radius: 16px;
+    border: transparent 2px solid;
+    background: transparent;
+    color: var(--text);
+    transition: all ease .2s;
+    cursor: pointer;
+}
 
+button.pill:hover{
+    background: var(--pil-bg);
+    font-weight: 600;
+}
 
+button.pill:focus, button.pill:active{
+    background: var(--pil-bg);
+    border: var(--card-border) 2px solid;
+    font-weight: 600;
+}
+
+button.pill.selected{
+    background: var(--pil-bg);
+}
 
 .material-icons-round {
     font-family: 'Material Icons Round';
@@ -70,4 +131,273 @@ body{
     user-select: none; /* Standard */
 
     transition: margin .2s ease;
+}
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+label.tag {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--text);
+    background: var(--pil-bg);
+    border-radius: 5px;
+    padding: 4px;
+    text-align: center;
+    min-width: 100px;
+    width: fit-content;
+    margin: 4px;
+}
+
+.temperature{
+    width: calc(100%);
+    margin: 8px 8px 32px;
+    border-radius: 24px;
+    background: var(--bg);
+    background-image: url(/style/img/clouds.png);
+    background-size: cover;
+    display: flex;
+    flex-direction: row;
+    padding: 16px;
+    aspect-ratio: 2 / 1;
+}
+
+.temperature .content{
+    flex: 1;
+    aspect-ratio: 1 / 1;
+    margin: 8px;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.temperature .content .time{
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: .5rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-weight: 500;
+    color: var(--text-accent);
+}
+
+.temperature .content .recent{
+    position: absolute;
+    top: 0;
+    background: var(--w80);
+    padding: .2rem .5rem;
+    font-size: .7rem;
+    margin: .5rem;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-weight: 400;
+    color: var(--text-accent);
+}
+
+.temperature .content .time > span{
+    font-size: 16px;
+    margin-left: 4px;
+}
+
+.temperature .content h2{
+    color: var(--text-accent);
+    margin-top: 1.5rem;
+}
+
+
+.temperature .content h1{
+    font-size: 160px;
+    color: var(--text-accent3);
+    font-weight: 200;
+    margin: 0;
+}
+
+.temperature .content .currentAdditional{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+}
+
+.temperature .content .currentAdditional > div{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 8px 8px 0;
+}
+
+.temperature .content .currentAdditional > div > span{
+    margin-right: 8px;
+    color: var(--text-accent50);
+    backdrop-filter: blur(12px);
+}
+.temperature .content .currentAdditional > div > p{
+    white-space: nowrap;
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--text-accent);
+}
+.temperature .content .currentAdditional > div > p > span{
+    font-size: 10px;
+    font-weight: 400;
+}
+
+.temperature .forecast{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    background: linear-gradient(315deg,var(--w80),var(--w30));
+    backdrop-filter: blur(12px);
+    border-radius: 8px;
+    margin: 8px;
+    aspect-ratio: 1/1;
+    height: calc(100% - 48px);
+}
+.temperature .forecast h2{
+    margin: 0;
+    color: var(--text-accent);
+    width: 100%;
+    text-align: center;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.temperature .forecast > p{
+    margin: 0;
+    color: var(--text);
+    opacity: .8;
+    width: 100%;
+    text-align: center;
+    font-weight: 400;
+    font-size: 12px;
+}
+
+.temperature .forecast .forecast-list{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 16px;
+    overflow: auto;
+    scrollbar-width: thin;
+}
+
+.temperature .forecast .forecast-list .list-item{
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    justify-content: center;
+    width: calc(100% - 32px);
+    margin: 4px 0;
+    background: var(--w80);
+    border-radius: 12px;
+    padding: 24px 16px 16px;
+    font-size: 32px;
+    font-weight: 900;
+}
+
+.temperature .forecast .forecast-list .list-item .time{
+    position: absolute;
+    font-size: 13px;
+    top: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 1;
+    padding: 2px 8px;
+    border-radius: 8px;
+    color: var(--text-accent2);
+    font-weight: 500;
+    background: var(--w90);
+}
+
+.temperature .forecast .forecast-list .list-item > div{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 8px 8px 0;
+}
+
+.temperature .forecast .forecast-list .list-item > div > span{
+    font-size: 12px;
+    margin-right: 4px;
+    color: var(--text-accent50);
+}
+.temperature .forecast .forecast-list .list-item > div > p{
+    white-space: nowrap;
+    font-size: 12px;
+    font-weight: 800;
+    margin: 0;
+    color: var(--text-accent);
+}
+.temperature .forecast .forecast-list .list-item > div > p > span{
+    font-size: 8px;
+    font-weight: 400;
+}
+
+.f-row.past{
+    aspect-ratio: 4/1;
+}
+
+.f-row.past .card{
+    position: relative;
+    flex: 1;
+    aspect-ratio: 1/1;
+    
+    background: linear-gradient(315deg,var(--card-bg),var(--bg));
+    border-radius: 32px;
+    margin: 8px;
+    padding: 16px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.f-row.past .card > span{
+    height: fit-content;
+    width: fit-content;
+    padding: 16px;
+    background: var(--w80);
+    color: var(--text-accent2);
+    border-radius: 50%;
+}
+
+.f-row.past .card h3{
+    margin: 8px;
+    color: var(--text);
+}
+
+.f-row.past .card .text{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.f-row.past .card .value{
+    padding: 16px 1.2rem;
+    width: fit-content;
+    min-width: 1.9rem;
+    font-size: 1.5rem;
+    font-weight: 800;
+    text-align: right;
+    color: var(--text-accent);
+    background: var(--w80);
+    border-radius: 32px;
+    align-self: flex-end;
+}
+
+.f-row.past .card .value > span{
+    font-size: 1rem;
+    font-weight: 400;
 }
