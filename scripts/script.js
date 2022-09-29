@@ -87,7 +87,7 @@ function SetForecast(data){
 
 function GetForecast(city){
     let forecasts; 
-    fetch('http://localhost:8081/forecast/' + city)
+    fetch('http://localhost:8080/forecast/' + city)
     .then(function(response) {
         return response.json();
     }).then(function(jsonData) {
