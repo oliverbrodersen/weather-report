@@ -25,27 +25,27 @@ async function ChangeCity(city){
 }
 
 function SetCurrent(data){
-    document.getElementById("current-time").innerHTML = new Date(data.time).getHours() + ':' + new Date(data.time).getMinutes().padStart(2, '0') + '<span class="material-icons-round">schedule</span>';
-    document.getElementById("current-temp").innerHTML = data.ForecastData.from + "° - " + data.ForecastData.from + "°";
-    document.getElementById("current-precipitation").innerHTML = data.Precipitation.from + " - " + data.Precipitation.from + "<span>mm</span>";
-    document.getElementById("current-wind-speed").innerHTML = data.WindSpeed.from + " - " + data.WindSpeed.from + "<span>m/s</span>";
-    document.getElementById("current-cloud-coverage").innerHTML = data.CloudCoverage.from + " - " + data.CloudCoverage.from + "<span>%</span>";
+    document.getElementById("current-time").innerHTML = new Date(data.time).getHours() + ':' + new Date(data.time).getMinutes() + '<span class="material-icons-round">schedule</span>';
+    document.getElementById("current-temp").innerHTML = data.temp.from + "°";
+    document.getElementById("current-precipitation").innerHTML = data.precipitation.from + " - " + data.precipitation.from + "<span>mm</span>";
+    document.getElementById("current-wind-speed").innerHTML = data.windspeed.from + " - " + data.windspeed.from + "<span>m/s</span>";
+    document.getElementById("current-cloud-coverage").innerHTML = data.cloud.from + " - " + data.cloud.from + "<span>%</span>";
 }
 
 function SetForecast(data){
     const container = document.getElementById("forecast-list");
     data.forEach(element => {
-        container.append(
+        container.innerHTML +=
             '<div class="list-item">'+
                 '<div class="time">'+
-                    new Date(element.time).getHours() + ':' + new Date(element.time).getMinutes() +
+                    new Date(element.time).getHours() + ':0' + new Date(element.time).getMinutes() +
                 '</div>'+
                 '<div class="temperature-measurement">'+
                     '<span class="material-icons-round">'+
                         'thermostat'+
                     '</span>'+
                     '<p>'+
-                        element.ForecastData.from + '° - ' + element.ForecastData.to + '°'+
+                        element.temp.from + '° - ' + element.temp.to + '°'+
                     '</p>'+
                 '</div>'+
                 '<div class="precipitation">'+
@@ -53,7 +53,7 @@ function SetForecast(data){
                         'water_drop'+
                     '</span>'+
                     '<p>'+
-                        element.Precipitation.from + ' - ' + element.Precipitation.to +
+                        element.precipitation.from + ' - ' + element.precipitation.to +
                         '<span>'+
                             'mm'+
                         '</span>'+
@@ -64,7 +64,7 @@ function SetForecast(data){
                         'air'+
                     '</span>'+
                     '<p>'+
-                        element.WindSpeed.from + ' - ' + element.WindSpeed.to +
+                        element.windspeed.from + ' - ' + element.windspeed.to +
                         '<span>'+
                             'm/s'+
                         '</span>'+
@@ -75,18 +75,18 @@ function SetForecast(data){
                         'cloud'+
                     '</span>'+
                    ' <p>'+
-                        element.CloudCoverage.from + ' - ' + element.CloudCoverage.to +
+                        element.cloud.from + ' - ' + element.cloud.to +
                         '<span>'+
                             '%'+
                         '</span>'+
                     '</p>'+
                 '</div>'+
-            '</div>');
+            '</div>';
             });
 }
 
 async function GetForecast(city){
-    const response = await fetch('http://localhost:8081/forecast/' + city, {});
+    const response = await fetch('http://localhost:8080/forecast/' + city, {});
     const json = await response.json();
     let forecasts = CreateForecastObjects(json);
     return forecasts;
