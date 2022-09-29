@@ -157,7 +157,7 @@ label.tag {
     margin: 8px 8px 32px;
     border-radius: 24px;
     background: var(--bg);
-    background-image: url(/style/img/clouds.png);
+    background-image: url(../style/img/clouds.png);
     background-size: cover;
     display: flex;
     flex-direction: row;
