@@ -47,6 +47,9 @@ function SetForecast(data){
     data.forEach(element => {
         container.innerHTML +=
             '<div class="list-item">'+
+                '<div class="precipitations">'+
+                    MapPrecipitation(element.precipitation.precipitation_types) +
+                '</div>' + 
                 '<div class="time">'+
                     new Date(element.time).getHours() + ':0' + new Date(element.time).getMinutes() +
                 '</div>'+
@@ -380,6 +383,32 @@ function MapDirection(dir){
                 break;
             case "West":
                 icon = "west"
+                break;
+        }
+        res += '<span class="material-icons-round">' + icon + "</span>";
+    });
+
+    return res;
+}
+function MapPrecipitation(dir){
+    let res = "";
+    dir.forEach(element => {
+        let icon;
+        switch(element){ 
+            case "rain":
+                icon = "water_drop";
+                break;
+            case "sleet":
+                icon = "cloud";
+                break;
+            case "hail":
+                icon = "cloud";
+                break;
+            case "snow":
+                icon = "ac_unit";
+                break;
+            default:
+                icon = element;
                 break;
         }
         res += '<span class="material-icons-round">' + icon + "</span>";
