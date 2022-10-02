@@ -322,6 +322,21 @@ label.tag {
     background: var(--w90);
 }
 
+.temperature .forecast .forecast-list .list-item .wind{
+    position: absolute;
+    font-size: 13px;
+    top: -2px;
+    right: 0;
+    opacity: 1;
+    padding: 2px 8px;
+    border-radius: 8px;
+    color: var(--text-accent2);
+    font-weight: 500;
+    background: var(--w90);
+    display: flex;
+    flex-direction: row;
+}
+
 .temperature .forecast .forecast-list .list-item > div{
     display: flex;
     flex-direction: row;
