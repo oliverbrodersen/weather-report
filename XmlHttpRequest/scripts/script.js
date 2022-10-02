@@ -1,4 +1,5 @@
 let history;
+let forecasts;
 let selectedCity = '';
 let baseUrl = 'http://localhost:8081/';
 async function ChangeCity(city){
@@ -24,13 +25,9 @@ async function ChangeCity(city){
     document.getElementById("date-range").innerHTML = dd + '/' + mm + ' - ' + dd1 + '/' + mm1;
 
     //Get data
-    const forecasts = await GetForecast(city);
-    history = await GetHistorical(city);
+    await GetForecast(city);
+    await GetHistorical(city);
 
-    //Update UI
-    SetCurrent(forecasts[0]);
-    SetForecast(forecasts);
-    SetHistory();
 }
 
 function SetCurrent(data){
@@ -155,28 +152,45 @@ function Submit(){
             break;
     }
 
-    let res = fetch(baseUrl + "data", {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-    });
-    console.log(res);
+    let xhr = new XMLHttpRequest();
+
+    let json = JSON.stringify(data);
+    
+    xhr.open("POST", baseUrl + "data");
+    xhr.setRequestHeader('Content-type', 'application/json');
+    
+    xhr.send(json);
 }
 
 async function GetForecast(city){
-    const response = await fetch(baseUrl + 'forecast/' + city, {});
-    const json = await response.json();
-    let forecasts = CreateForecastObjects(json);
-    return forecasts;
+    let xhr = new XMLHttpRequest();
+    xhr.open("GET", baseUrl + 'forecast/' + city);
+    xhr.responseType = 'json';
+
+    xhr.onload = function() 
+    {
+        forecasts = CreateForecastObjects(xhr.response);
+        //Update UI
+        SetCurrent(forecasts[0]);
+        SetForecast(forecasts);
+    };
+    
+    xhr.send();
 }
 
 async function GetHistorical(city){
-    const response = await fetch(baseUrl + 'data/' + city, {});
-    const json = await response.json();
-    let history = CreateHistoricalObjects(json);
-    return history;
+    let xhr = new XMLHttpRequest();
+    xhr.open("GET", baseUrl + 'data/' + city);
+    xhr.responseType = 'json';
+
+    xhr.onload = function() 
+    {
+        history = CreateHistoricalObjects(xhr.response);
+        //Update UI
+        SetHistory();
+    };
+    
+    xhr.send();
 }
 
 const type = { type: '' };
