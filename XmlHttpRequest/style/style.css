@@ -7,7 +7,7 @@ body{
     --text50: #00000050;
     --text-accent: #78b568;
     --text-accent50: #78b56850;
-    --text-accent2: #7be522;
+    --text-accent2: #91c862;
     --text-accent3: #439741;
 
     --card-border:#74fd62;
@@ -79,6 +79,18 @@ body > .content{
     opacity: var(--o2);
     color: var(--text);
 }
+.header .content:first-of-type{
+    flex-direction: column;
+    align-items: center;
+    padding: .5rem 0;
+}
+.header .content .subtitle{
+    font-weight: 400;
+    font-size: 1.2rem;
+    opacity: var(--o2);
+    color: var(--text-accent);
+}
+
 
 button.pill{
     padding: 5px 12px;
@@ -322,6 +334,35 @@ label.tag {
     background: var(--w90);
 }
 
+.temperature .forecast .forecast-list .list-item .wind{
+    position: absolute;
+    font-size: 13px;
+    top: -2px;
+    right: 0;
+    opacity: 1;
+    padding: 2px 8px;
+    border-radius: 8px;
+    color: var(--text-accent2);
+    font-weight: 500;
+    background: var(--w90);
+    display: flex;
+    flex-direction: row;
+}
+.temperature .forecast .forecast-list .list-item > .precipitations{
+    position: absolute;
+    font-size: 13px;
+    top: -2px;
+    left: 0;
+    opacity: 1;
+    padding: 2px 8px;
+    border-radius: 8px;
+    color: var(--text-accent2);
+    font-weight: 500;
+    background: var(--w90);
+    display: flex;
+    flex-direction: row;
+}
+
 .temperature .forecast .forecast-list .list-item > div{
     display: flex;
     flex-direction: row;
@@ -332,7 +373,7 @@ label.tag {
 .temperature .forecast .forecast-list .list-item > div > span{
     font-size: 12px;
     margin-right: 4px;
-    color: var(--text-accent50);
+    color: var(--text-accent);
 }
 .temperature .forecast .forecast-list .list-item > div > p{
     white-space: nowrap;

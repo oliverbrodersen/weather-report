@@ -72,12 +72,23 @@ body > .content{
     justify-content: center;
     padding: .5rem 0;
 }
+.header .content:first-of-type{
+    flex-direction: column;
+    align-items: center;
+    padding: .5rem 0;
+}
 
 .header .content .title{
     font-weight: 900;
     font-size: 2rem;
     opacity: var(--o2);
     color: var(--text);
+}
+.header .content .subtitle{
+    font-weight: 400;
+    font-size: 1.2rem;
+    opacity: var(--o2);
+    color: var(--text-accent);
 }
 
 button.pill{

@@ -1,7 +1,7 @@
 let history;
 let forecasts;
 let selectedCity = '';
-let baseUrl = 'http://localhost:8081/';
+let baseUrl = 'http://localhost:8080/';
 async function ChangeCity(city){
     selectedCity = city;
 
@@ -44,9 +44,15 @@ function SetForecast(data){
     data.forEach(element => {
         container.innerHTML +=
             '<div class="list-item">'+
+                '<div class="precipitations">'+
+                    MapPrecipitation(element.precipitation.precipitation_types) +
+                '</div>' + 
                 '<div class="time">'+
                     new Date(element.time).getHours() + ':0' + new Date(element.time).getMinutes() +
                 '</div>'+
+                '<div class="wind">'+
+                    MapDirection(element.windspeed.directions) +
+                '</div>' + 
                 '<div class="temperature-measurement">'+
                     '<span class="material-icons-round">'+
                         'thermostat'+
@@ -361,6 +367,68 @@ function GetUnit(type){
         case "precipitation":
             return "mm";
     }
+}
+
+function MapDirection(dir){
+    let res = "";
+    dir.forEach(element => {
+        let icon;
+        switch(element){ 
+            case "Southeast":
+                icon = "south_east";
+                break;
+            case "Southwest":
+                icon = "south_west";
+                break;
+            case "Northeast":
+                icon = "north_east";
+                break;
+            case "Northwest":
+                icon = "north_west";
+                break;
+            case "North":
+                icon = "north";
+                break;
+            case "South":
+                icon = "south";
+                break;
+            case "East":
+                icon = "east";
+                break;
+            case "West":
+                icon = "west"
+                break;
+        }
+        res += '<span class="material-icons-round">' + icon + "</span>";
+    });
+
+    return res;
+}
+function MapPrecipitation(dir){
+    let res = "";
+    dir.forEach(element => {
+        let icon;
+        switch(element){ 
+            case "rain":
+                icon = "water_drop";
+                break;
+            case "sleet":
+                icon = "cloud";
+                break;
+            case "hail":
+                icon = "cloud";
+                break;
+            case "snow":
+                icon = "ac_unit";
+                break;
+            default:
+                icon = element;
+                break;
+        }
+        res += '<span class="material-icons-round">' + icon + "</span>";
+    });
+
+    return res;
 }
 
 // subscribte to change in select
