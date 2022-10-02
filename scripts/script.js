@@ -21,11 +21,43 @@ async function ChangeCity(city){
     //Get data
     const forecasts = await GetForecast(city);
     history = await GetHistorical(city);
-    
+    SetPastData();
+
     //Update UI
     SetCurrent(forecasts[0]);
     SetForecast(forecasts);
     SetHistory();
+}
+
+let avgWindSpeed = 0;
+let maxTemp = 0;
+let minTemp = 999;
+let totalPrecipitation = 0;
+function SetPastData()
+{
+    let today = new Date();
+    let yesterday = new Date(today.getTime());
+    yesterday.setDate(today.getDate() - 1);
+
+    let items = history.filter(x => new Date(x.time) > yesterday);
+    console.log(items);
+
+    items.forEach(x => {
+        if (x.temp.value > maxTemp)
+        {
+            maxTemp = x.temp.value;
+        }
+
+        if (x.temp.value < minTemp)
+        {
+            minTemp = x.temp.value;
+        }
+        
+        totalPrecipitation += x.precipitation.value;
+        avgWindSpeed += x.windspeed.value; 
+    });
+
+    avgWindSpeed /= items.length;
 }
 
 function SetCurrent(data){
@@ -91,48 +123,32 @@ function SetForecast(data){
 }
 
 function SetHistory(){
-    document.getElementById("pastMinTemp").innerHTML = GetMinTemp() + "°";
-    document.getElementById("pastMaxTemp").innerHTML = GetMaxTemp() + "°";
-    document.getElementById("pastPrecipitation").innerHTML = GetTotalPercipitation() + "<span>mm</span>";
-    document.getElementById("pastWindSpeed").innerHTML = GetAvgWindSpeed() + "<span>m/s</span>";
-}
-
-function GetMinTemp(){
-    return "x";
-}
-
-function GetMaxTemp(){
-    return "x";
-}
-
-function GetTotalPercipitation(){
-    return "x";
-}
-
-function GetAvgWindSpeed(){
-    return "x";
+    document.getElementById("pastMinTemp").innerHTML = minTemp + "°";
+    document.getElementById("pastMaxTemp").innerHTML = maxTemp + "°";
+    document.getElementById("pastPrecipitation").innerHTML = totalPrecipitation.toFixed(2) + "<span>mm</span>";
+    document.getElementById("pastWindSpeed").innerHTML = avgWindSpeed.toFixed(2) + "<span>m/s</span>";
 }
 
 async function GetForecast(city){
-    const response = await fetch('http://localhost:8080/forecast/' + city, {});
+    const response = await fetch('http://localhost:8081/forecast/' + city, {});
     const json = await response.json();
     let forecasts = CreateForecastObjects(json);
     return forecasts;
 }
 
 async function GetHistorical(city){
-    const response = await fetch('http://localhost:8080/data/' + city, {});
+    const response = await fetch('http://localhost:8081/data/' + city, {});
     const json = await response.json();
-    let history = null;
+    let history = CreateHistoricalObjects(json);
     return history;
 }
 
 const type = { type: '' };
 
 // Historical data point
-const value = { from: 0 };
-const HistoricalData = () => {
-    return Object.assign({}, value, type);
+const value = { value: 0 };
+const HistoricalData = (data) => {
+    return Object.assign({}, value, data);
 };
 
 // Forecast data point
@@ -144,6 +160,9 @@ const ForecastData = (data) => {
 
 const time = { time: '' };
 const Forecast = (temp, precipitation, wind, cloud) => {
+    return Object.assign({}, time, temp, precipitation, wind, cloud);
+};
+const Historical = (temp, precipitation, wind, cloud) => {
     return Object.assign({}, time, temp, precipitation, wind, cloud);
 };
 
@@ -159,10 +178,54 @@ const precipitation_types = { precipitation_types: [''] }
 const Precipitation = (data) => {
     return Object.assign({}, precipitation_types, data)
 }
+const precipitation_type = { precipitation_type: '' }
+const HistoricalPrecipitation = (data) => {
+    return Object.assign({}, precipitation_type, data)
+}
 
 const directions = { directions: [''] }
 const WindSpeed = (data) => {
     return Object.assign({}, directions, data)
+}
+const direction = { direction: '' }
+const HistoricalWindSpeed = (data) => {
+    return Object.assign({}, direction, data)
+}
+
+function CreateHistoricalObjects(jsonData)
+{
+    let arr = [];
+    for (let index = 0; index < jsonData.length; index += 4) {
+
+        var temp = Temperature(HistoricalData({
+            value: jsonData[index].value
+        }));
+
+        var precipitation = HistoricalPrecipitation(HistoricalData({
+            value: jsonData[index+1].value,
+            precipitation_type: jsonData[index+1].precipitation_type
+        }));
+
+        var windspeed = HistoricalWindSpeed(HistoricalData({
+            value: jsonData[index+2].value,
+            direction: jsonData[index+2].direction
+        }));
+
+        var cloud = CloudCoverage(HistoricalData({
+            value: jsonData[index+3].value,
+        }));
+
+        var forecast = Historical({
+            time: jsonData[index].time,
+            temp: temp,
+            precipitation: precipitation,
+            windspeed: windspeed,
+            cloud: cloud
+        });
+
+        arr.push(forecast);
+    }
+    return arr;
 }
 
 function CreateForecastObjects(jsonData)
