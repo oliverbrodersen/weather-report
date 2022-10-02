@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="style/style.css">
+    <title>Weather report</title>
+</head>
+<body class="sun">
+    <div class="header">
+        <div class="content">
+            <div class="title">
+                Weather report
+            </div>
+        </div>
+        <div class="content">
+            <button class="pill" id="Horsens" onclick="ChangeCity('Horsens')">
+                Horsens
+            </button>
+            <button class="pill" id="Copenhagen" onclick="ChangeCity('Copenhagen')">
+                Copenhagen
+            </button>
+            <button class="pill" id="Aarhus" onclick="ChangeCity('Aarhus')">
+                Aarhus
+            </button>
+        </div>
+    </div>
+    <div class="content">
+        <div class="f-row">
+            <div class="temperature">
+                <div class="content">
+                    <div class="recent">
+                        Newest measurement
+                    </div>
+                    <div class="time" id="current-time"></div>
+                    <h2 class="city" id="selected-city"></h2>
+                    <h1 id="current-temp"></h1>
+                    <div class="currentAdditional">
+                        <div class="precipitation">
+                            <span class="material-icons-round">
+                                water_drop
+                            </span>
+                            <p id="current-precipitation">
+                                <span>mm</span>
+                            </p>
+                        </div>
+    
+                        <div class="wind-speed">
+                            <span class="material-icons-round">
+                                air
+                            </span>
+                            <p id="current-wind-speed">
+                                <span>
+                                    m/s
+                                </span>
+                            </p>
+                        </div>
+    
+                        <div class="cloud-coverage">
+                            <span class="material-icons-round">
+                                cloud
+                            </span>
+                            <p id="current-cloud-coverage">
+                                <span>
+                                    %
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="forecast">
+                    <h2>
+                        Next 24 hours
+                    </h2>
+                    <p id="date-range"></p>
+                    <div class="forecast-list" id="forecast-list">
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <label class="tag">
+            Past 24h
+        </label>
+        <div class="f-row past">
+            <div class="card">
+                <span class="material-icons-round">
+                    thermostat
+                </span>
+                <div class="text">
+                    <h3>
+                        Min. temp
+                    </h3>
+                </div>
+                <div id="pastMinTemp" class="value"></div>
+            </div>
+            <div class="card">
+                <span class="material-icons-round">
+                    thermostat
+                </span>
+                <div class="text">
+                    <h3>
+                        Max. temp
+                    </h3>
+                </div>
+                <div id="pastMaxTemp" class="value"></div>
+            </div>
+            <div class="card">
+                <span class="material-icons-round">
+                    water_drop
+                </span>
+                <div class="text">
+                    <h3>
+                        Total precipitation
+                    </h3>
+                </div>
+                <div id="pastPrecipitation" class="value"></div>
+            </div>
+            <div class="card">
+                <span class="material-icons-round">
+                    air
+                </span>
+                <div class="text">
+                    <h3>
+                        Average wind speed
+                    </h3>
+                </div>
+                <div id="pastWindSpeed" class="value"></div>
+            </div>
+        </div>
+    </div>
+    <div class="add-data">
+        <button class="add" onclick="ToggleAdd()">
+            <span class="material-icons-round">
+                add
+            </span>
+        </button>
+        <div id="add-data" class="hide">
+            <h2>
+                Submit data
+            </h2>
+            <h4 id="selected-city1">
+            </h4>
+
+            <label for="types">Type:</label>
+            <select name="types" class="types" id="type">
+                <option value="temperature">Temperature</option>
+                <option value="precipitation">Precipitation</option>
+                <option value="wind speed">Wind speed</option>
+                <option value="cloud coverage">Cloud coverage</option>
+            </select>
+            <label>
+                Value:
+            </label>
+            <input type="number" id="value" class="value"/>
+            <label id="aditional-value-label" class="ad">
+                Value:
+            </label>
+            <input type="text" id="aditional-value" class="ad value"/>
+            
+            <button type="submit" onclick="Submit()">
+                Subimt
+            </button>
+        </div>
+    </div>
+    <script src="scripts/script.js"></script>
+</body>
+</html>

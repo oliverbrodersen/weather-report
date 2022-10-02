@@ -1,0 +1,484 @@
+*{
+    font-family: 'Outfit', sans-serif;
+}
+
+body{ 
+    --text: #31701c;
+    --text50: #00000050;
+    --text-accent: #78b568;
+    --text-accent50: #78b56850;
+    --text-accent2: #7be522;
+    --text-accent3: #439741;
+
+    --card-border:#74fd62;
+    --pil-bg:#d8ffdb80;
+    --card-bg:#ddffd880;
+    --card-bg2:#dbffd8;
+    --card-bg250:#dbffd850;
+
+    --bg:#c1e9a7;
+    --bg50:#c1e9a720;
+
+    --w30:#ffffff30;
+    --w80:#ffffff80;
+    --w90:#ffffff90;
+    --w:#fff;
+
+    --o1: 1;
+    --o2: .8;
+    --o3: .5;
+    --o0: 0;
+
+    --content-size: 980px;
+    --shadow-color: 222deg 31% 65%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    min-height: 100vh;
+    margin: 0%;
+}
+
+body > .content{
+    width: calc(100% - 2rem);
+    max-width: var(--content-size);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.f-row{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+}
+
+.header{
+    width: calc(100% - 2rem);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1rem 1rem;
+}
+
+.header .content{
+    width: calc(100% - 2rem);
+    max-width: var(--content-size);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: .5rem 0;
+}
+
+.header .content .title{
+    font-weight: 900;
+    font-size: 2rem;
+    opacity: var(--o2);
+    color: var(--text);
+}
+
+button.pill{
+    padding: 5px 12px;
+    margin: 0 4px;
+    border-radius: 16px;
+    border: transparent 2px solid;
+    background: transparent;
+    color: var(--text);
+    transition: all ease .2s;
+    cursor: pointer;
+}
+
+button.pill:hover{
+    background: var(--pil-bg);
+    font-weight: 600;
+}
+
+button.pill:focus, button.pill:active{
+    background: var(--pil-bg);
+    border: var(--card-border) 2px solid;
+    font-weight: 600;
+}
+
+button.pill.selected{
+    background: var(--pil-bg);
+}
+
+.material-icons-round {
+    font-family: 'Material Icons Round';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px; /* Preferred icon size */
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+    /* Support for IE. */
+    font-feature-settings: 'liga';
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+    user-select: none; /* Standard */
+
+    transition: margin .2s ease;
+}
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+label.tag {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--text);
+    background: var(--pil-bg);
+    border-radius: 5px;
+    padding: 4px;
+    text-align: center;
+    min-width: 100px;
+    width: fit-content;
+    margin: 4px;
+}
+
+.temperature{
+    width: calc(100%);
+    margin: 8px 8px 32px;
+    border-radius: 24px;
+    background: var(--bg);
+    background-image: url(../style/img/clouds.png);
+    background-size: cover;
+    display: flex;
+    flex-direction: row;
+    padding: 16px;
+    aspect-ratio: 2 / 1;
+}
+
+.temperature .content{
+    flex: 1;
+    aspect-ratio: 1 / 1;
+    margin: 8px;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.temperature .content .time{
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: .5rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-weight: 500;
+    color: var(--text-accent);
+}
+
+.temperature .content .recent{
+    position: absolute;
+    top: 0;
+    background: var(--w80);
+    padding: .2rem .5rem;
+    font-size: .7rem;
+    margin: .5rem;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-weight: 400;
+    color: var(--text-accent);
+}
+
+.temperature .content .time > span{
+    font-size: 16px;
+    margin-left: 4px;
+}
+
+.temperature .content h2{
+    color: var(--text-accent);
+    margin-top: 1.5rem;
+}
+
+
+.temperature .content h1{
+    font-size: 160px;
+    color: var(--text-accent3);
+    font-weight: 200;
+    margin: 0;
+}
+
+.temperature .content .currentAdditional{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+}
+
+.temperature .content .currentAdditional > div{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 8px 8px 0;
+}
+
+.temperature .content .currentAdditional > div > span{
+    margin-right: 8px;
+    color: var(--text-accent50);
+    backdrop-filter: blur(12px);
+}
+.temperature .content .currentAdditional > div > p{
+    white-space: nowrap;
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--text-accent);
+}
+.temperature .content .currentAdditional > div > p > span{
+    font-size: 10px;
+    font-weight: 400;
+}
+
+.temperature .forecast{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    background: linear-gradient(315deg,var(--w80),var(--w30));
+    backdrop-filter: blur(12px);
+    border-radius: 8px;
+    margin: 8px;
+    aspect-ratio: 1/1;
+    height: calc(100% - 48px);
+}
+.temperature .forecast h2{
+    margin: 0;
+    color: var(--text-accent);
+    width: 100%;
+    text-align: center;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.temperature .forecast > p{
+    margin: 0;
+    color: var(--text);
+    opacity: .8;
+    width: 100%;
+    text-align: center;
+    font-weight: 400;
+    font-size: 12px;
+}
+
+.temperature .forecast .forecast-list{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 16px;
+    overflow: auto;
+    scrollbar-width: thin;
+}
+
+.temperature .forecast .forecast-list .list-item{
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    justify-content: center;
+    width: calc(100% - 32px);
+    margin: 4px 0;
+    background: var(--w80);
+    border-radius: 12px;
+    padding: 24px 16px 16px;
+    font-size: 32px;
+    font-weight: 900;
+}
+
+.temperature .forecast .forecast-list .list-item .time{
+    position: absolute;
+    font-size: 13px;
+    top: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 1;
+    padding: 2px 8px;
+    border-radius: 8px;
+    color: var(--text-accent2);
+    font-weight: 500;
+    background: var(--w90);
+}
+
+.temperature .forecast .forecast-list .list-item > div{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 8px 8px 0;
+}
+
+.temperature .forecast .forecast-list .list-item > div > span{
+    font-size: 12px;
+    margin-right: 4px;
+    color: var(--text-accent50);
+}
+.temperature .forecast .forecast-list .list-item > div > p{
+    white-space: nowrap;
+    font-size: 12px;
+    font-weight: 800;
+    margin: 0;
+    color: var(--text-accent);
+}
+.temperature .forecast .forecast-list .list-item > div > p > span{
+    font-size: 8px;
+    font-weight: 400;
+}
+
+.f-row.past{
+    aspect-ratio: 4/1;
+}
+
+.f-row.past .card{
+    position: relative;
+    flex: 1;
+    aspect-ratio: 1/1;
+    
+    background: linear-gradient(315deg,var(--card-bg),var(--bg));
+    border-radius: 32px;
+    margin: 8px;
+    padding: 16px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.f-row.past .card > span{
+    height: fit-content;
+    width: fit-content;
+    padding: 16px;
+    background: var(--w80);
+    color: var(--text-accent2);
+    border-radius: 50%;
+}
+
+.f-row.past .card h3{
+    margin: 8px;
+    color: var(--text);
+}
+
+.f-row.past .card .text{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.f-row.past .card .value{
+    padding: 16px 1.2rem;
+    width: fit-content;
+    min-width: 1.9rem;
+    font-size: 1.5rem;
+    font-weight: 800;
+    text-align: right;
+    color: var(--text-accent);
+    background: var(--w80);
+    border-radius: 32px;
+    align-self: flex-end;
+}
+
+.f-row.past .card .value > span{
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.add-data{
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+}   
+
+.add-data .add{
+    height: 64px;
+    width: 64px;
+    min-height: 64px;
+    min-width: 64px;
+    background: var(--card-bg2);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px, rgba(0, 0, 0, 0.07) 0px 4px 4px, rgba(0, 0, 0, 0.07) 0px 8px 8px, rgba(0, 0, 0, 0.07) 0px 16px 16px;
+}
+.add-data .add:hover{
+    background: var(--card-bg250);
+}
+
+.add-data .add span{
+    font-size: 42px;
+    color: var(--card-border);
+    font-weight: 900;
+}
+
+.add-data #add-data{
+    position: absolute;
+    bottom: 72px;
+    right: 0;
+
+    width: 256px;
+    background: var(--card-bg2);
+    border: 2px solid var(--card-bg);
+    backdrop-filter: blur(8px);
+    border-radius: 8px;
+    padding: 16px;
+
+    display: flex;
+    flex-direction: column;
+
+    opacity: 1;
+    display: flex;
+    pointer-events: auto;
+}
+
+.add-data #add-data.hide {
+    opacity: 0;
+    display: none;
+    pointer-events: none;
+}
+
+#add-data h2, #add-data h4, #add-data label{
+    margin: 0;
+    color: var(--text-accent3);
+}
+
+#add-data label{
+    margin-top: 8px;
+    font-weight: 700;
+}
+
+.ad{
+    display: none;
+}
+
+.ad.show{
+    display: block;
+}
+
+#add-data button{
+    margin-top: 8px;
+    font-weight: 800;
+    background: var(--text-accent);
+    color: white;
+    border: none;
+    padding: 8px 0;
+}
