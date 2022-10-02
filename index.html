@@ -135,6 +135,40 @@
             </div>
         </div>
     </div>
+    <div class="add-data">
+        <button class="add" onclick="ToggleAdd()">
+            <span class="material-icons-round">
+                add
+            </span>
+        </button>
+        <div id="add-data" class="hide">
+            <h2>
+                Submit data
+            </h2>
+            <h4 id="selected-city1">
+            </h4>
+
+            <label for="types">Type:</label>
+            <select name="types" class="types" id="type">
+                <option value="temperature">Temperature</option>
+                <option value="precipitation">Precipitation</option>
+                <option value="wind speed">Wind speed</option>
+                <option value="cloud coverage">Cloud coverage</option>
+            </select>
+            <label>
+                Value:
+            </label>
+            <input type="number" id="value" class="value"/>
+            <label id="aditional-value-label" class="ad">
+                Value:
+            </label>
+            <input type="text" id="aditional-value" class="ad value"/>
+            
+            <button type="submit" onclick="Submit()">
+                Subimt
+            </button>
+        </div>
+    </div>
     <script src="scripts/script.js"></script>
 </body>
 </html>

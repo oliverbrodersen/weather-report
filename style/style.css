@@ -2,7 +2,7 @@
     font-family: 'Outfit', sans-serif;
 }
 
-body{
+body{ 
     --text: #1c4670;
     --text50: #00000050;
     --text-accent: #689fb5;
@@ -14,6 +14,7 @@ body{
     --pil-bg:#d8f0ff80;
     --card-bg:#d8f0ff80;
     --card-bg2:#d8f0ff;
+    --card-bg250:#d8f0ff50;
 
     --bg:#8fd9ff;
     --bg50:#d8f0ff20;
@@ -400,4 +401,84 @@ label.tag {
 .f-row.past .card .value > span{
     font-size: 1rem;
     font-weight: 400;
+}
+
+.add-data{
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+}   
+
+.add-data .add{
+    height: 64px;
+    width: 64px;
+    min-height: 64px;
+    min-width: 64px;
+    background: var(--card-bg2);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px, rgba(0, 0, 0, 0.07) 0px 4px 4px, rgba(0, 0, 0, 0.07) 0px 8px 8px, rgba(0, 0, 0, 0.07) 0px 16px 16px;
+}
+.add-data .add:hover{
+    background: var(--card-bg250);
+}
+
+.add-data .add span{
+    font-size: 42px;
+    color: var(--card-border);
+    font-weight: 900;
+}
+
+.add-data #add-data{
+    position: absolute;
+    bottom: 72px;
+    right: 0;
+
+    width: 256px;
+    background: var(--card-bg2);
+    border: 2px solid var(--card-bg);
+    backdrop-filter: blur(8px);
+    border-radius: 8px;
+    padding: 16px;
+
+    display: flex;
+    flex-direction: column;
+
+    opacity: 1;
+    display: flex;
+    pointer-events: auto;
+}
+
+.add-data #add-data.hide {
+    opacity: 0;
+    display: none;
+    pointer-events: none;
+}
+
+#add-data h2, #add-data h4, #add-data label{
+    margin: 0;
+    color: var(--text-accent3);
+}
+
+#add-data label{
+    margin-top: 8px;
+    font-weight: 700;
+}
+
+.ad{
+    display: none;
+}
+
+.ad.show{
+    display: block;
+}
+
+#add-data button{
+    margin-top: 8px;
+    font-weight: 800;
+    background: var(--text-accent);
+    color: white;
+    border: none;
+    padding: 8px 0;
 }

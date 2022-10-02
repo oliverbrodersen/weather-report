@@ -9,6 +9,8 @@ async function ChangeCity(city){
     //Select
     document.getElementById(city).classList.add("selected");
     document.getElementById("selected-city").innerHTML = city;
+    document.getElementById("selected-city1").innerHTML = "<span>City: </span>" + city;
+
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
     var mm = String(today.getMonth() + 1).padStart(2, '0'); 
@@ -113,6 +115,14 @@ function GetAvgWindSpeed(){
     return "x";
 }
 
+function Submit(){
+    let _city = city;
+    let _type = document.getElementById("type").value;
+    let _unit = GetUnit(_type);
+    let _value = document.getElementById("aditional-value").value;
+    let _additionalData = document.getElementById("").value;
+}
+
 async function GetForecast(city){
     const response = await fetch('http://localhost:8080/forecast/' + city, {});
     const json = await response.json();
@@ -203,6 +213,59 @@ function CreateForecastObjects(jsonData)
         arr.push(forecast);
     }
     return arr;
+}
+
+function ToggleAdd(){
+    const addClassList = document.getElementById("add-data").classList;
+    if(addClassList.contains("hide")){
+        addClassList.remove("hide")
+    }
+    else{
+        addClassList.add("hide")
+    }
+}
+
+function SelectType(type){
+    const av = document.getElementById("aditional-value");
+    const avl = document.getElementById("aditional-value-label");
+    switch(type){
+        case "cloud coverage":
+        case "temperature":
+            av.classList.remove("show");
+            avl.classList.remove("show");
+            break;
+        case "wind speed":
+            avl.innerHTML = "Direction";
+            av.classList.add("show");
+            avl.classList.add("show");
+            break;
+        case "precipitation":
+            avl.innerHTML = "Precipitation Type";
+            av.classList.add("show");
+            avl.classList.add("show");
+            break;
+    }
+}
+
+function GetUnit(type){
+    switch(type){
+        case "wind speed":
+            return "m/s"
+        case "cloud coverage":
+            return "%"
+        case "temperature":
+            return "C";
+        case "precipitation":
+            return "mm";
+    }
+}
+
+// subscribte to change in select
+window.onload = function() {
+    var select = document.getElementById('type');
+    select.onchange = function() {
+        SelectType(select.value);
+    }
 }
 
 ChangeCity('Horsens');
