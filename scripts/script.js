@@ -1,6 +1,9 @@
 let history;
-
+let selectedCity = '';
+let baseUrl = 'http://localhost:8081/';
 async function ChangeCity(city){
+    selectedCity = city;
+
     //Deselect
     document.getElementById("Horsens").classList.remove("selected");
     document.getElementById("Aarhus").classList.remove("selected");
@@ -23,43 +26,11 @@ async function ChangeCity(city){
     //Get data
     const forecasts = await GetForecast(city);
     history = await GetHistorical(city);
-    SetPastData();
 
     //Update UI
     SetCurrent(forecasts[0]);
     SetForecast(forecasts);
     SetHistory();
-}
-
-let avgWindSpeed = 0;
-let maxTemp = 0;
-let minTemp = 999;
-let totalPrecipitation = 0;
-function SetPastData()
-{
-    let today = new Date();
-    let yesterday = new Date(today.getTime());
-    yesterday.setDate(today.getDate() - 1);
-
-    let items = history.filter(x => new Date(x.time) > yesterday);
-    console.log(items);
-
-    items.forEach(x => {
-        if (x.temp.value > maxTemp)
-        {
-            maxTemp = x.temp.value;
-        }
-
-        if (x.temp.value < minTemp)
-        {
-            minTemp = x.temp.value;
-        }
-        
-        totalPrecipitation += x.precipitation.value;
-        avgWindSpeed += x.windspeed.value; 
-    });
-
-    avgWindSpeed /= items.length;
 }
 
 function SetCurrent(data){
@@ -132,22 +103,77 @@ function SetHistory(){
 }
 
 function Submit(){
-    let _city = city;
     let _type = document.getElementById("type").value;
     let _unit = GetUnit(_type);
-    let _value = document.getElementById("aditional-value").value;
-    let _additionalData = document.getElementById("").value;
+    let _value = parseFloat(document.getElementById("value").value);
+    let _additionalData = document.getElementById("aditional-value").value;
+
+    let today = new Date();
+    today.setMinutes(0,0,0);
+    let now = today.toISOString();
+
+    let data = {};
+    switch (_type)
+    {
+        case "temperature":
+            data = {
+                type: _type,
+                time: now,
+                place: selectedCity,
+                value: _value,
+                unit: _unit
+            }
+            break;
+        case "precipitation":
+            data = {
+                type: _type,
+                time: now,
+                place: selectedCity,
+                value: _value,
+                unit: _unit,
+                precipitation: _additionalData
+            }
+            break;
+        case "wind speed":
+            data = {
+                type: _type,
+                time: now,
+                place: selectedCity,
+                value: _value,
+                unit: _unit,
+                direction: _additionalData
+            }
+            break;
+        case "cloud coverage":
+            data = {
+                type: _type,
+                time: now,
+                place: selectedCity,
+                value: _value,
+                unit: _unit
+            }
+            break;
+    }
+
+    let res = fetch(baseUrl + "data", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    });
+    console.log(res);
 }
 
 async function GetForecast(city){
-    const response = await fetch('http://localhost:8081/forecast/' + city, {});
+    const response = await fetch(baseUrl + 'forecast/' + city, {});
     const json = await response.json();
     let forecasts = CreateForecastObjects(json);
     return forecasts;
 }
 
 async function GetHistorical(city){
-    const response = await fetch('http://localhost:8081/data/' + city, {});
+    const response = await fetch(baseUrl + 'data/' + city, {});
     const json = await response.json();
     let history = CreateHistoricalObjects(json);
     return history;
@@ -202,40 +228,40 @@ const HistoricalWindSpeed = (data) => {
     return Object.assign({}, direction, data)
 }
 
+let avgWindSpeed = 0;
+let maxTemp = 0;
+let minTemp = 999;
+let totalPrecipitation = 0;
 function CreateHistoricalObjects(jsonData)
 {
-    let arr = [];
-    for (let index = 0; index < jsonData.length; index += 4) {
+    let today = new Date();
+    let yesterday = new Date(today.getTime());
+    yesterday.setDate(today.getDate() - 1);
 
-        var temp = Temperature(HistoricalData({
-            value: jsonData[index].value
-        }));
-
-        var precipitation = HistoricalPrecipitation(HistoricalData({
-            value: jsonData[index+1].value,
-            precipitation_type: jsonData[index+1].precipitation_type
-        }));
-
-        var windspeed = HistoricalWindSpeed(HistoricalData({
-            value: jsonData[index+2].value,
-            direction: jsonData[index+2].direction
-        }));
-
-        var cloud = CloudCoverage(HistoricalData({
-            value: jsonData[index+3].value,
-        }));
-
-        var forecast = Historical({
-            time: jsonData[index].time,
-            temp: temp,
-            precipitation: precipitation,
-            windspeed: windspeed,
-            cloud: cloud
-        });
-
-        arr.push(forecast);
+    jsonData = jsonData.filter(x => new Date(x.time) > yesterday);
+    for (let index = 0; index < jsonData.length; index++) {
+        var data = jsonData[index];
+        switch (data.type)
+        {
+            case "temperature":
+                if (data.value > maxTemp)
+                {
+                    maxTemp = data.value;
+                }
+                if (data.value < minTemp)
+                {
+                    minTemp = data.value;
+                }
+                break;
+            case "precipitation":
+                totalPrecipitation += data.value;
+                break;
+            case "wind speed":
+                avgWindSpeed += data.value; 
+                break;
+        }
     }
-    return arr;
+    avgWindSpeed /= jsonData.length;
 }
 
 function CreateForecastObjects(jsonData)
