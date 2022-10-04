@@ -1,4 +1,3 @@
-let history;
 let selectedCity = '';
 let baseUrl = 'http://localhost:8080/';
 async function ChangeCity(city){
@@ -25,12 +24,11 @@ async function ChangeCity(city){
 
     //Get data
     const forecasts = await GetForecast(city);
-    history = await GetHistorical(city);
+    await GetHistorical(city);
 
     //Update UI
     SetCurrent(forecasts[0]);
     SetForecast(forecasts);
-    SetHistory();
 }
 
 function SetCurrent(data){
@@ -99,13 +97,6 @@ function SetForecast(data){
                 '</div>'+
             '</div>';
             });
-}
-
-function SetHistory(){
-    document.getElementById("pastMinTemp").innerHTML = minTemp + "°";
-    document.getElementById("pastMaxTemp").innerHTML = maxTemp + "°";
-    document.getElementById("pastPrecipitation").innerHTML = totalPrecipitation.toFixed(2) + "<span>mm</span>";
-    document.getElementById("pastWindSpeed").innerHTML = avgWindSpeed.toFixed(2) + "<span>m/s</span>";
 }
 
 function Submit(){
@@ -181,8 +172,7 @@ async function GetForecast(city){
 async function GetHistorical(city){
     const response = await fetch(baseUrl + 'data/' + city, {});
     const json = await response.json();
-    let history = CreateHistoricalObjects(json);
-    return history;
+    SetHistoricalData(json);
 }
 
 const type = { type: '' };
@@ -234,12 +224,14 @@ const HistoricalWindSpeed = (data) => {
     return Object.assign({}, direction, data)
 }
 
-let avgWindSpeed = 0;
-let maxTemp = 0;
-let minTemp = 999;
-let totalPrecipitation = 0;
-function CreateHistoricalObjects(jsonData)
+
+function SetHistoricalData(jsonData)
 {
+    let avgWindSpeed = 0;
+    let maxTemp = 0;
+    let minTemp = 999;
+    let totalPrecipitation = 0;
+
     let today = new Date();
     let yesterday = new Date(today.getTime());
     yesterday.setDate(today.getDate() - 1);
@@ -268,6 +260,11 @@ function CreateHistoricalObjects(jsonData)
         }
     }
     avgWindSpeed /= jsonData.length;
+
+    document.getElementById("pastMinTemp").innerHTML = minTemp + "°";
+    document.getElementById("pastMaxTemp").innerHTML = maxTemp + "°";
+    document.getElementById("pastPrecipitation").innerHTML = totalPrecipitation.toFixed(2) + "<span>mm</span>";
+    document.getElementById("pastWindSpeed").innerHTML = avgWindSpeed.toFixed(2) + "<span>m/s</span>";
 }
 
 function CreateForecastObjects(jsonData)

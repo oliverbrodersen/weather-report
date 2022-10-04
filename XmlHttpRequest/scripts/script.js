@@ -1,5 +1,3 @@
-let history;
-let forecasts;
 let selectedCity = '';
 let baseUrl = 'http://localhost:8080/';
 async function ChangeCity(city){
@@ -98,13 +96,6 @@ function SetForecast(data){
             });
 }
 
-function SetHistory(){
-    document.getElementById("pastMinTemp").innerHTML = minTemp + "°";
-    document.getElementById("pastMaxTemp").innerHTML = maxTemp + "°";
-    document.getElementById("pastPrecipitation").innerHTML = totalPrecipitation.toFixed(2) + "<span>mm</span>";
-    document.getElementById("pastWindSpeed").innerHTML = avgWindSpeed.toFixed(2) + "<span>m/s</span>";
-}
-
 function Submit(){
     let _type = document.getElementById("type").value;
     let _unit = GetUnit(_type);
@@ -191,9 +182,7 @@ async function GetHistorical(city){
 
     xhr.onload = function() 
     {
-        history = CreateHistoricalObjects(xhr.response);
-        //Update UI
-        SetHistory();
+        SetHistoricalData(xhr.response);
     };
     
     xhr.send();
@@ -248,12 +237,13 @@ const HistoricalWindSpeed = (data) => {
     return Object.assign({}, direction, data)
 }
 
-let avgWindSpeed = 0;
-let maxTemp = 0;
-let minTemp = 999;
-let totalPrecipitation = 0;
-function CreateHistoricalObjects(jsonData)
+
+function SetHistoricalData(jsonData)
 {
+    let avgWindSpeed = 0;
+    let maxTemp = 0;
+    let minTemp = 999;
+    let totalPrecipitation = 0;
     let today = new Date();
     let yesterday = new Date(today.getTime());
     yesterday.setDate(today.getDate() - 1);
@@ -282,6 +272,11 @@ function CreateHistoricalObjects(jsonData)
         }
     }
     avgWindSpeed /= jsonData.length;
+
+    document.getElementById("pastMinTemp").innerHTML = minTemp + "°";
+    document.getElementById("pastMaxTemp").innerHTML = maxTemp + "°";
+    document.getElementById("pastPrecipitation").innerHTML = totalPrecipitation.toFixed(2) + "<span>mm</span>";
+    document.getElementById("pastWindSpeed").innerHTML = avgWindSpeed.toFixed(2) + "<span>m/s</span>";
 }
 
 function CreateForecastObjects(jsonData)
